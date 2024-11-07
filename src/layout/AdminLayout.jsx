@@ -7,7 +7,6 @@ const AdminLayout = () => {
   const { user } = useAuthContext()
   console.log("admin layout")
   console.log(user)
-//   if (user.userType !== 'admin') return <Navigate to="/" />
   return (
     <>
       <AdminNavbar />

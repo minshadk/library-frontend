@@ -17,7 +17,7 @@ const AddBook = () => {
   const [language, setLanguage] = useState(null)
   const [year, setYear] = useState(null)
 
-  const [errors, setErrors] = useState({})  // For storing error messages
+  const [errors, setErrors] = useState({})  
 
   const genreOptions = [
     'Autography',
@@ -44,14 +44,11 @@ const AddBook = () => {
   ]
 
   const handleFormSubmit = async () => {
-    // Clear previous errors
     setErrors({})
 
-    // Form validation
     let formIsValid = true
     const newErrors = {}
 
-    // Validate required fields
     if (!title) {
       newErrors.title = 'Title is required'
       formIsValid = false
@@ -85,13 +82,11 @@ const AddBook = () => {
       formIsValid = false
     }
 
-    // If validation fails, update errors and return
     if (!formIsValid) {
       setErrors(newErrors)
       return
     }
 
-    // If validation passes, send data to the server
     const bookDetails = {
       title,
       author,

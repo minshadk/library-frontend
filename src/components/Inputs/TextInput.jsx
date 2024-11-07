@@ -13,7 +13,6 @@ const TextInput = ({ type, placeHolder, textValue, setText, error }) => {
         value={textValue || ''}
         onChange={(e) => handleTextInput(e.target.value)}
       />
-      {/* Error message display */}
       {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
   );

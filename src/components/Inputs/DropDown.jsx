@@ -34,7 +34,6 @@ const DropDown = ({ options, label, setOption, optionValue, error }) => {
             ))}
         </ul>
       )}
-      {/* Error message display */}
       {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
   );

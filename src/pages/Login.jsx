@@ -15,7 +15,6 @@ const Login = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic form validation
     if (!userName || !password) {
       setError("Please fill in both username and password.");
       return;
@@ -36,6 +35,7 @@ const Login = () => {
       const json = await response.json();
 
       if (!response.ok) {
+        console.log(json.message)
         setError(json.message || "Login failed. Please try again.");
         setIsLoading(false);
         return;
@@ -43,13 +43,9 @@ const Login = () => {
 
       const { token, userType } = json.data.userData;
       localStorage.setItem("token", token);
-      console.log(json)
-      console.log(userType)
 
-      // Dispatch login action to update context
       dispatch({ type: "LOGIN", payload: json.data.userData });
 
-      // Redirect based on userType
       if (userType === "admin") {
         navigate("/admin/home");
       } else {

@@ -13,7 +13,6 @@ import SignUp from './pages/SignUp'
 import BrowseBooks from './pages/BrowseBooks'
 import { useAuthContext } from './hooks/useAuthContext'
 
-// Component to protect admin routes
 const AdminRoute = ({ element }) => {
   const { user } = useAuthContext()
 

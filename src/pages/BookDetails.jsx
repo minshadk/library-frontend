@@ -61,6 +61,7 @@ const BookDetails = () => {
         },
       })
       const json = await response.json()
+      console.log(response.status)
 
       if (response.status === 200) {
         setComments((prevComments) => [...prevComments, json])
@@ -168,15 +169,11 @@ const BookDetails = () => {
       <div className="max-w-4xl w-full space-y-8 mx-auto">
         <h1 className="text-2xl">Review</h1>
         <p>{book?.description}</p>
-        {/* <h1 className="text-2xl">Comments</h1> */}
 
-        {commentSuccess && (
-          <div className="mt-4 text-center text-green-600">
-            {commentSuccess}
-          </div>
-        )}
         {comments.length === 0 ? (
-          <p className="text-center text-gray-500">No comments available. Be the first to comment</p>
+          <p className="text-center text-gray-500">
+            No comments available. Be the first to comment
+          </p>
         ) : (
           comments.map((comment) => (
             <div key={comment._id}>
@@ -191,9 +188,15 @@ const BookDetails = () => {
           textValue={comment}
           setText={setComment}
         />
+        {commentSuccess && (
+          <div className="mt-4 text-center text-green-600">
+            {commentSuccess}
+          </div>
+        )}
         <button
           type="submit"
-          className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+          className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 mb-11"
+          style={{marginBottom:"200px"}}
           onClick={handleNewComment}
           disabled={isLoading}
         >

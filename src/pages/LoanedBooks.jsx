@@ -4,7 +4,6 @@ const LoanedBooks = () => {
   const [loanedBooks, setLoanedBooks] = useState([])
   const [loading, setLoading] = useState(false)
 
-  // Fetch loaned books from the server
   const fetchLoanedBooks = async () => {
     setLoading(true)
     try {
