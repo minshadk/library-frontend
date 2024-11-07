@@ -86,6 +86,7 @@ const BookDetails = () => {
       try {
         const response = await fetch(`/book/${bookId}`)
         const bookData = await response.json()
+        console.log(bookData)
         setBook(bookData)
       } catch (err) {
         console.error('Error fetching book details:', err)
@@ -146,6 +147,16 @@ const BookDetails = () => {
                 <span>ISBN: </span> <span>{book?.isbn}</span>
               </div>
             </div>
+            <div className="flex justify-between border-b-2">
+              <div>
+                <span>Owner Name: </span>
+                <span>{book?.bookOwnerId?.userName}</span>
+              </div>
+              <div>
+                <span>Phone Number: </span>
+                <span>{book?.bookOwnerId?.phoneNumber}</span>
+              </div>
+            </div>
             {successMessage && (
               <div className="mt-4 text-center text-green-600">
                 {successMessage}
@@ -196,7 +207,7 @@ const BookDetails = () => {
         <button
           type="submit"
           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 mb-11"
-          style={{marginBottom:"200px"}}
+          style={{ marginBottom: '200px' }}
           onClick={handleNewComment}
           disabled={isLoading}
         >

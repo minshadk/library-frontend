@@ -1,22 +1,23 @@
-import { NavLink } from "react-router-dom";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { NavLink } from 'react-router-dom'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const Navbar = () => {
-  const { user } = useAuthContext();
-  const { dispatch } = useAuthContext();
+  const { user } = useAuthContext()
+  const { dispatch } = useAuthContext()
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
 
-    dispatch({ type: "LOGOUT" });
-  };
+    dispatch({ type: 'LOGOUT' })
+  }
 
   return (
     <nav className="bg-white border-gray-200 px-2 ">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <NavLink to="/" className="flex">
           <span className="self-center text-lg font-semibold whitespace-nowrap">
-          Readers Community
+            Readers Community
           </span>
         </NavLink>
         <div className="hidden md:block w-full md:w-auto" id="mobile-menu">
@@ -35,6 +36,22 @@ const Navbar = () => {
                 className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0"
               >
                 Browse Books
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="borrowedBooks"
+                className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0"
+              >
+                Borrowed Books
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="addBook"
+                className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0"
+              >
+                Add Book
               </NavLink>
             </li>
             {!user ? (
@@ -70,7 +87,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

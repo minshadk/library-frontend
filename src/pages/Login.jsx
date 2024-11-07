@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import TextInput from "../components/Inputs/TextInput";
 
@@ -35,7 +35,7 @@ const Login = () => {
       const json = await response.json();
 
       if (!response.ok) {
-        console.log(json.message)
+        console.log(json.message);
         setError(json.message || "Login failed. Please try again.");
         setIsLoading(false);
         return;
@@ -92,6 +92,12 @@ const Login = () => {
             </button>
           </div>
         </form>
+        <div className="text-sm text-center mt-4">
+          <span>Don't have an account? </span>
+          <Link to="/signup" className="text-indigo-600 hover:text-indigo-500">
+            Sign up here
+          </Link>
+        </div>
       </div>
     </div>
   );

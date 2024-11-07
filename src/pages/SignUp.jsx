@@ -1,18 +1,18 @@
 import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 
 import TextInput from '../components/Inputs/TextInput'
-import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
   const navigate = useNavigate()
   const [userName, setUserName] = useState()
   const [password, setPassword] = useState()
-  const [email, setEmail] = useState()
+  const [phoneNumber, setPhoneNumber] = useState()
 
   const handleFormSubmit = async () => {
     const userDetails = {
       userName,
-      email,
+      phoneNumber,
       password,
     }
     const response = await fetch('http://localhost:5000/user/signUp', {
@@ -22,7 +22,6 @@ const SignUp = () => {
         'Content-Type': 'application/json',
       },
     })
-    const json = await response.json()
     if (response.ok) navigate('/login')
   }
   return (
@@ -43,10 +42,10 @@ const SignUp = () => {
                 setText={setUserName}
               />
               <TextInput
-                placeHolder={'Email'}
-                type={'email'}
-                textValue={email}
-                setText={setEmail}
+                placeHolder={'Phone Number'}
+                type={'number'}
+                textValue={phoneNumber}
+                setText={setPhoneNumber}
               />
               <TextInput
                 placeHolder={'Password'}
@@ -64,6 +63,15 @@ const SignUp = () => {
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
                 Sign Up
               </button>
+              <div className="text-sm text-center mt-4">
+                <span> Have an account? </span>
+                <Link
+                  to="/login"
+                  className="text-indigo-600 hover:text-indigo-500"
+                >
+                  Login now
+                </Link>
+              </div>
             </div>
           </div>
         </div>

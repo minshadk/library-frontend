@@ -1,22 +1,23 @@
-import { NavLink } from "react-router-dom";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { NavLink } from 'react-router-dom'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const AdminNavbar = () => {
-  const { user } = useAuthContext();
-  const { dispatch } = useAuthContext();
+  const { user } = useAuthContext()
+  const { dispatch } = useAuthContext()
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
 
-    dispatch({ type: "LOGOUT" });
-  };
+    dispatch({ type: 'LOGOUT' })
+  }
 
   return (
     <nav className="teal-600 border-gray-200 px-2 ">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <NavLink to="/" className="flex">
           <span className="self-center text-lg font-semibold whitespace-nowrap">
-          Readers Community
+            Readers Community
           </span>
         </NavLink>
         <div className="hidden md:block w-full md:w-auto" id="mobile-menu">
@@ -47,10 +48,18 @@ const AdminNavbar = () => {
             </li>
             <li>
               <NavLink
-                to="/admin/addBook"
+                to="/admin/manageBooks"
                 className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0"
               >
-                Add Book
+                Manage Books
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/manageUsers"
+                className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0"
+              >
+                Manage Users
               </NavLink>
             </li>
             {!user ? (
@@ -86,7 +95,7 @@ const AdminNavbar = () => {
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default AdminNavbar;
+export default AdminNavbar

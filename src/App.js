@@ -11,6 +11,10 @@ import BookDetails from './pages/BookDetails'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import BrowseBooks from './pages/BrowseBooks'
+import BorrowedBooks from './pages/BorrowedBooks'
+import ManageBooks from './pages/ManageBooks'
+import ManageUsers from './pages/ManageUsers'
+
 import { useAuthContext } from './hooks/useAuthContext'
 
 const AdminRoute = ({ element }) => {
@@ -40,6 +44,8 @@ function App() {
           <Route path="/:bookId" element={<BookDetails />} />
           <Route path="/bookDetails/:bookId" element={<BookDetails />} />
           <Route path="/browseBook" element={<BrowseBooks />} />
+          <Route path="/addBook" element={<AddBook />} />
+          <Route path="/borrowedBooks" element={<BorrowedBooks />} />
         </Route>
 
         {/* Auth Routes */}
@@ -55,13 +61,18 @@ function App() {
             path="/admin/home"
             element={<AdminRoute element={<Home />} />}
           />
+
           <Route
-            path="/admin/addBook" 
-            element={<AdminRoute element={<AddBook />} />}
+            path="/admin/loanedBooks"
+            element={<AdminRoute element={<LoanedBooks />} />}
           />
           <Route
-            path="/admin/loanedBooks" 
-            element={<AdminRoute element={<LoanedBooks />} />}
+            path="/admin/manageBooks"
+            element={<AdminRoute element={<ManageBooks />} />}
+          />
+          <Route
+            path="/admin/manageUsers"
+            element={<AdminRoute element={<ManageUsers />} />}
           />
         </Route>
       </Routes>
