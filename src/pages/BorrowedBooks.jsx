@@ -2,24 +2,9 @@ import { useState, useEffect } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 const BorrowedBooks = () => {
-  const { user } = useAuthContext()
-  console.log(user.token)
   const [borrowedBooks, setBorrowedBooks] = useState([])
   const [loading, setLoading] = useState(false)
 
-  //   const fetchBorrowedBooks = async () => {
-  //     setLoading(true)
-  //     try {
-  //       const response = await fetch('http://localhost:5000/book/borrowedBooks')
-  //       console.log(response)
-  //     //   const books = await response.json()
-  //     //   setBorrowedBooks(books.filter((book) => !book.available))
-  //     //   setLoading(false)
-  //     } catch (err) {
-  //       console.error('Error fetching loaned books:', err)
-  //       setLoading(false)
-  //     }
-  //   }
   const fetchBorrowedBooks = async () => {
     setLoading(true)
     try {

@@ -65,18 +65,24 @@ const LoanedBooks = () => {
                       <p className="text-gray-500">{book.genre}</p>
                       <p className="text-gray-400">{book.language}</p>
                     </div>
+                    <div className="m-10">
+                      <h3 className="text-lg font-semibold ">Borrowed User</h3>
+                      <p className="text-gray-600">{book.borrowedUserId.userName}</p>
+                      <p className="text-gray-500">{book.borrowedUserId.phoneNumber}</p>
+                    </div>
                     <img
                       src={book.coverUrl}
                       alt={book.title}
                       className="w-20 h-30 object-cover rounded-lg"
                     />
-                    <button
-                      onClick={() => returnBook(book._id)}
-                      className="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700"
-                    >
-                      Return Book
-                    </button>
                   </div>
+                  {/* <button
+                    onClick={() => returnBook(book._id)}
+                    className="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700"
+                    style={{ width: '100%' }}
+                  >
+                    Return Book
+                  </button> */}
                 </div>
               ))
             )}

@@ -14,6 +14,7 @@ import BrowseBooks from './pages/BrowseBooks'
 import BorrowedBooks from './pages/BorrowedBooks'
 import ManageBooks from './pages/ManageBooks'
 import ManageUsers from './pages/ManageUsers'
+import OwnedBooks from './pages/OwnedBooks'
 
 import { useAuthContext } from './hooks/useAuthContext'
 
@@ -46,6 +47,7 @@ function App() {
           <Route path="/browseBook" element={<BrowseBooks />} />
           <Route path="/addBook" element={<AddBook />} />
           <Route path="/borrowedBooks" element={<BorrowedBooks />} />
+          <Route path="/ownedBooks" element={<OwnedBooks />} />
         </Route>
 
         {/* Auth Routes */}
@@ -57,6 +59,7 @@ function App() {
 
         {/* Admin Routes */}
         <Route element={<AdminLayout />}>
+
           <Route
             path="/admin/home"
             element={<AdminRoute element={<Home />} />}

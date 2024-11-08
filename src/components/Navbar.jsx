@@ -1,7 +1,8 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const { user } = useAuthContext()
   const { dispatch } = useAuthContext()
 
@@ -10,6 +11,7 @@ const Navbar = () => {
     localStorage.removeItem('token')
 
     dispatch({ type: 'LOGOUT' })
+    navigate('/')
   }
 
   return (
@@ -52,6 +54,14 @@ const Navbar = () => {
                 className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0"
               >
                 Add Book
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="ownedBooks"
+                className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0"
+              >
+                Owned Books
               </NavLink>
             </li>
             {!user ? (
