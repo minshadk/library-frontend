@@ -14,11 +14,11 @@ const AdminNavbar = () => {
     navigate('/')
   }
   return (
-    <nav className="teal-600 border-gray-200 px-2 ">
+    <nav className="teal-600 border-gray-200 px-2 py-5">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
-        <NavLink to="/" className="flex">
-          <span className="self-center text-lg font-semibold whitespace-nowrap">
-            Readers Community
+        <NavLink to="/" className="flex no-active">
+          <span className="self-center text-lg font-semibold whitespace-nowrap gradient-text">
+            📚 Readers Community
           </span>
         </NavLink>
         <div className="hidden md:block w-full md:w-auto" id="mobile-menu">

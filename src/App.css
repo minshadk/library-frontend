@@ -27,3 +27,10 @@
 .App-link {
   color: #61dafb;
 }
+
+.active {
+  font-weight: bold;
+  color: #007bff; /* Customize the color */
+  text-decoration: underline;
+}
+

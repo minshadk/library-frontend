@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useAuthContext } from '../hooks/useAuthContext'
 
 const BorrowedBooks = () => {
   const [borrowedBooks, setBorrowedBooks] = useState([])
@@ -12,7 +11,6 @@ const BorrowedBooks = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          //   Authorization: `Bearer ${user.token}`,
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       })
@@ -89,13 +87,28 @@ const BorrowedBooks = () => {
                       alt={book.title}
                       className="w-20 h-30 object-cover rounded-lg"
                     />
-                    <button
-                      onClick={() => returnBook(book._id)}
-                      className="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700"
-                    >
-                      Return Book
-                    </button>
+                    {book.available === false && book.borrowedUserId && (
+                      <div className="mt-4">
+                        <h4 className="text-sm font-semibold text-gray-700">
+                          Book Owner
+                        </h4>
+                        <p className="text-gray-600">
+                          Name: {book.borrowedUserId.userName}
+                        </p>
+                        <p className="text-gray-600">
+                          Phone: {book.borrowedUserId.phoneNumber}
+                        </p>
+                      </div>
+                    )}
                   </div>
+
+                  <button
+                    onClick={() => returnBook(book._id)}
+                    className="px-4 py-2 my-3 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 "
+                    style={{width:"100%"}}
+                  >
+                    Return Book
+                  </button>
                 </div>
               ))
             )}

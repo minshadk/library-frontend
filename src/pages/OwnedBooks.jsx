@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useAuthContext } from '../hooks/useAuthContext';
 
 const OwnedBooks = () => {
-  const { user } = useAuthContext();
   const [ownedBooks, setOwnedBooks] = useState([]);
   const [loading, setLoading] = useState(false);
 
