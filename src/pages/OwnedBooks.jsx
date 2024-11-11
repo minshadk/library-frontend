@@ -17,6 +17,7 @@ const OwnedBooks = () => {
 
       if (response.ok) {
         const books = await response.json();
+        console.log(books)
         setOwnedBooks(books);
       } else {
         console.log('Failed to fetch owned books');

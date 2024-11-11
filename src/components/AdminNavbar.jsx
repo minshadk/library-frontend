@@ -63,6 +63,13 @@ const AdminNavbar = () => {
                 Manage Users
               </NavLink>
             </li>
+            <li>
+              {user && (
+                <span className="text-blue-700 font-medium">
+                  {user.userName}
+                </span>
+              )}
+            </li>
             {!user ? (
               <>
                 <li>

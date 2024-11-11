@@ -9,6 +9,7 @@ const ManageBooks = () => {
     try {
       const response = await fetch('http://localhost:5000/book')
       const books = await response.json()
+      console.log(books)
       setBooks(books)
       setLoading(false)
     } catch (err) {
@@ -42,41 +43,43 @@ const ManageBooks = () => {
   }, [])
 
   return (
-    <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <h1 className="text-3xl font-extrabold text-center"> Books</h1>
+    <div className="flex justify-center">
+      <div className="w-full max-w-6xl space-y-8 px-4">
+        <h1 className="text-3xl font-extrabold text-center">Books</h1>
         {loading ? (
           <p className="text-center">Loading...</p>
         ) : (
           <div className="space-y-6">
             {books.length === 0 ? (
-              <p className="text-center text-red-500">no books found</p>
+              <p className="text-center text-red-500">No books found</p>
             ) : (
               books.map((book) => (
                 <div
                   key={book._id}
-                  className="bg-white shadow-lg rounded-lg overflow-hidden p-6 w-full max-w-4xl"
-                  style={{ width: '100%' }}
+                  className="bg-white shadow-lg rounded-lg overflow-hidden p-6 w-full flex items-center space-x-6"
                 >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="text-lg font-semibold">{book.title}</h3>
-                      <p className="text-gray-600">{book.author}</p>
-                      <p className="text-gray-500">{book.genre}</p>
-                      <p className="text-gray-400">{book.language}</p>
-                    </div>
-                    <img
-                      src={book.coverUrl}
-                      alt={book.title}
-                      className="w-20 h-30 object-cover rounded-lg"
-                    />
-                    <button
-                      onClick={() => deleteBook(book._id)}
-                      className="px-4 py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700"
-                    >
-                      delete
-                    </button>
+                  <img
+                    src={book.coverUrl}
+                    alt={book.title}
+                    className="w-32 h-48 object-cover rounded-lg"
+                  />
+                  <div className="flex-grow">
+                    <h3 className="text-xl font-semibold">{book.title}</h3>
+                    <p className="text-gray-600">{book.author}</p>
+                    <p className="text-gray-500">{book.genre}</p>
+                    <p className="text-gray-400">{book.language}</p>
                   </div>
+                  <div className="flex-grow ml-10">
+                    <h3 className="text-lg font-semibold">Owner Details</h3>
+                    <p className="text-gray-600">{book.bookOwnerId?.userName}</p>
+                    <p className="text-gray-500">{book.bookOwnerId?.phoneNumber}</p>
+                  </div>
+                  <button
+                    onClick={() => deleteBook(book._id)}
+                    className="px-4 py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700"
+                  >
+                    Delete
+                  </button>
                 </div>
               ))
             )}
