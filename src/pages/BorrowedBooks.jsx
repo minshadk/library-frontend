@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
 const BorrowedBooks = () => {
-  const [borrowedBooks, setBorrowedBooks] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [borrowedBooks, setBorrowedBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchBorrowedBooks = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await fetch('http://localhost:5000/book/borrowedBooks', {
         method: 'GET',
@@ -13,24 +13,22 @@ const BorrowedBooks = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      })
+      });
 
       if (response.ok) {
-        const books = await response.json()
-        console.log(books)
-        setBorrowedBooks(books)
+        const books = await response.json();
+        setBorrowedBooks(books);
       } else {
-        console.log('Failed to fetch borrowed books')
+        console.log('Failed to fetch borrowed books');
       }
     } catch (err) {
-      console.error('Error fetching borrowed books:', err)
+      console.error('Error fetching borrowed books:', err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const returnBook = async (bookId) => {
-    console.log('return function is called')
     try {
       const response = await fetch(`http://localhost:5000/book/${bookId}`, {
         method: 'PATCH',
@@ -39,22 +37,32 @@ const BorrowedBooks = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({ available: true }),
-      })
-      console.log(response)
+      });
 
       if (response.ok) {
-        fetchBorrowedBooks()
+        fetchBorrowedBooks();
       } else {
-        console.log('Failed to return book')
+        console.log('Failed to return book');
       }
     } catch (err) {
-      console.error('Error returning book:', err)
+      console.error('Error returning book:', err);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchBorrowedBooks()
-  }, [])
+    fetchBorrowedBooks();
+  }, []);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+  };
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -65,9 +73,7 @@ const BorrowedBooks = () => {
         ) : (
           <div className="space-y-6">
             {borrowedBooks.length === 0 ? (
-              <p className="text-center text-red-500">
-                No borrowed books found
-              </p>
+              <p className="text-center text-red-500">No borrowed books found</p>
             ) : (
               borrowedBooks.map((book) => (
                 <div
@@ -81,6 +87,11 @@ const BorrowedBooks = () => {
                       <p className="text-gray-600">{book.author}</p>
                       <p className="text-gray-500">{book.genre}</p>
                       <p className="text-gray-400">{book.language}</p>
+                      {book.pickedDate && (
+                        <p className="text-gray-500 mt-2">
+                          Picked Date: {formatDate(book.pickedDate)}
+                        </p>
+                      )}
                     </div>
                     <img
                       src={book.coverUrl}
@@ -89,23 +100,17 @@ const BorrowedBooks = () => {
                     />
                     {book.available === false && book.borrowedUserId && (
                       <div className="mt-4">
-                        <h4 className="text-sm font-semibold text-gray-700">
-                          Book Owner
-                        </h4>
-                        <p className="text-gray-600">
-                          Name: {book.borrowedUserId.userName}
-                        </p>
-                        <p className="text-gray-600">
-                          Phone: {book.borrowedUserId.phoneNumber}
-                        </p>
+                        <h4 className="text-sm font-semibold text-gray-700">Book Owner</h4>
+                        <p className="text-gray-600">Name: {book.borrowedUserId.userName}</p>
+                        <p className="text-gray-600">Phone: {book.borrowedUserId.phoneNumber}</p>
                       </div>
                     )}
                   </div>
 
                   <button
                     onClick={() => returnBook(book._id)}
-                    className="px-4 py-2 my-3 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 "
-                    style={{width:"100%"}}
+                    className="px-4 py-2 my-3 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700"
+                    style={{ width: '100%' }}
                   >
                     Return Book
                   </button>
@@ -116,7 +121,7 @@ const BorrowedBooks = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BorrowedBooks
+export default BorrowedBooks;

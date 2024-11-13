@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 const OwnedBooks = () => {
-  const [ownedBooks, setOwnedBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [ownedBooks, setOwnedBooks] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const fetchOwnedBooks = async () => {
-    setLoading(true);
+    setLoading(true)
     try {
       const response = await fetch('http://localhost:5000/book/ownedBooks', {
         method: 'GET',
@@ -13,25 +13,35 @@ const OwnedBooks = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      });
+      })
 
       if (response.ok) {
-        const books = await response.json();
-        console.log(books)
-        setOwnedBooks(books);
+        const books = await response.json()
+        setOwnedBooks(books)
       } else {
-        console.log('Failed to fetch owned books');
+        console.log('Failed to fetch owned books')
       }
     } catch (err) {
-      console.error('Error fetching owned books:', err);
+      console.error('Error fetching owned books:', err)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchOwnedBooks();
-  }, []);
+    fetchOwnedBooks()
+  }, [])
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    })
+  }
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -58,9 +68,38 @@ const OwnedBooks = () => {
                       <p className="text-gray-400">{book.language}</p>
                       {book.available === false && book.borrowedUserId && (
                         <div className="mt-4">
-                          <h4 className="text-sm font-semibold text-gray-700">Borrowed by:</h4>
-                          <p className="text-gray-600">Name: {book.borrowedUserId.userName}</p>
-                          <p className="text-gray-600">Phone: {book.borrowedUserId.phoneNumber}</p>
+                          <h4 className="text-sm font-semibold text-gray-700">
+                            Borrowed by:
+                          </h4>
+                          <p className="text-gray-600">
+                            Name: {book.borrowedUserId.userName}
+                          </p>
+                          <p className="text-gray-600">
+                            Phone: {book.borrowedUserId.phoneNumber}
+                          </p>
+                          {book.pickedDate && (
+                            <p className="text-gray-600 mt-2">
+                              Borrowed Date: {formatDate(book.pickedDate)}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      {book.available === true && book.borrowedUserId && (
+                        <div className="mt-4">
+                          <h4 className="text-sm font-semibold text-gray-700">
+                            Last Borrowed by:
+                          </h4>
+                          <p className="text-gray-600">
+                            Name: {book.borrowedUserId.userName}
+                          </p>
+                          <p className="text-gray-600">
+                            Phone: {book.borrowedUserId.phoneNumber}
+                          </p>
+                          {book.pickedDate && (
+                            <p className="text-gray-500 mt-2">
+                              Return Date: {formatDate(book.updatedAt)}
+                            </p>
+                          )}
                         </div>
                       )}
                     </div>
@@ -77,7 +116,7 @@ const OwnedBooks = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OwnedBooks;
+export default OwnedBooks

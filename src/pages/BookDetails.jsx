@@ -178,7 +178,7 @@ const BookDetails = () => {
         </div>
       </div>
       <div className="max-w-4xl w-full space-y-8 mx-auto">
-        <h1 className="text-2xl">Review</h1>
+        <h1 className="text-2xl">Summary</h1>
         <p>{book?.description}</p>
 
         {comments.length === 0 ? (
